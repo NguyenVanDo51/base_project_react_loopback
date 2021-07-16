@@ -1,0 +1,16 @@
+@import '../../styles/Variable.scss';
+
+.container {
+  width: 25px;
+  height: 25px;
+  border: 2px solid $primary-color;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $white-color;
+}
+
+.text {
+  color: $primary-color;
+}

@@ -1,0 +1,19 @@
+.btn_container {
+
+}
+
+.btn_icon {
+  background: white !important;
+  border: none !important;
+  box-shadow: unset !important;
+}
+
+.icon_button_container {
+    outline: none !important;
+    box-shadow: none !important;
+    padding: 7px !important;
+
+    &:hover {
+      background-color: transparent !important;
+    }
+}

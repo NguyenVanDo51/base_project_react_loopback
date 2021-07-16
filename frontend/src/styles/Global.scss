@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap');
+@import './Variable.scss';
+@import './custom.scss';
+
+.test {
+  background-color: red;
+}
+
+.shadow_small {
+  box-shadow: 0px 0px 1px rgba(20, 20, 20, 0.04), 0px 0px 8px rgba(20, 20, 20, 0.08);
+}
+
+.shadow_medium {
+  box-shadow: 0px 0px 1px rgba(20, 20, 20, 0.08), 0px 1px 8px 2px rgba(20, 20, 20, 0.08);
+}
+
+.shadow_large {
+  box-shadow: 0px 1px 24px 8px rgba(20, 20, 20, 0.08);
+}
+
+.title_large {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 48px;
+  line-height: 56px;
+}
+
+.title_medium {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 36px;
+}
+
+.title_small {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.text_large_bold {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.text_large_medium {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.text_large {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.text_nomal_bold {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.text_nomal_medium {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.text_nomal {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.text_small_bold {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+// default text
+.text_small_medium {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.text_small{
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+a {
+  text-decoration: none !important;
+  cursor: pointer;
+  color: $text-main-color !important;
+  font-family: $font-main;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  color: $text-main-color;
+  font-family: $font-main, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif !important;
+  font-size: 14px !important;
+  background-color: $background-color !important;
+}
+
+h2 {
+  color: #333;
+  text-align: center;
+}
+
+label {
+  display: flex;
+  margin-bottom: 0.5rem;
+  align-items: center;
+  width: 100%;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+}
+form {
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+input,
+textarea {
+  font-family: monospace;
+  flex: 1 1 0%;
+  margin-left: 0.5rem;
+  box-shadow: none;
+  width: 100%;
+  color: #000;
+  background-color: transparent;
+  border: 1px solid #d8d8d8;
+  border-radius: 5px;
+  outline: 0px;
+  padding: 10px 25px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+}
+button {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  background-color: #000;
+  cursor: pointer;
+  transition: all 0.2s ease 0s;
+  padding: 10px 25px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+header {
+  height: 56px;
+  border-bottom: 1px solid #d8d8d8;
+  background-color: $background-color;
+}
+
+nav {
+  margin: 0 32px;
+}
+
+footer {
+  text-align: center;
+  font-size: 0.8rem;
+  margin-top: 1rem;
+  padding: 3rem;
+  color: #888;
+}
+
+.padding_left {
+  padding-left: 16px;
+}
+
+.padding_right {
+  padding-right: 16px !important;
+}
+
+.padding_top {
+  padding-top: 16px !important;
+}
+
+.padding_bottom {
+  padding-bottom: 16px !important;
+}
+
+.margin_left {
+  margin-left: 16px !important;
+}
+
+.margin_right {
+  margin-right: 16px !important;
+}
+
+.margin_top {
+  margin-top: 16px !important;
+}
+
+.margin_bottom {
+  margin-bottom: 16px !important;
+}
+
+.d_none {
+  display: none !important;
+}
+
+.cursor_point {
+  cursor: pointer !important;
+}

@@ -1,0 +1,14 @@
+.root_container {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+
+  .main_container {
+    display: flex;
+  }
+
+  .content_page {
+    width: 100%;
+  }
+}

@@ -1,0 +1,33 @@
+@import '../../styles/Variable.scss';
+
+.left_menu {
+  width: 300px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s;
+  border-right: 1px solid #d8d8d8;
+}
+
+.width_0_animated {
+  width: 0 !important;
+  transform: translateX(-300px);
+}
+
+.project_container {
+  flex: 1;
+  padding: 16px;
+}
+
+.project_item {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  padding: 0 6px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $hover-item-color;
+  }
+}

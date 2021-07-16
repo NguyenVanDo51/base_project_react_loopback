@@ -1,0 +1,21 @@
+.nav_bar_main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+
+  .btn_project {
+    button {
+      box-shadow: unset;
+    }
+  }
+}
+
+.icon_container {
+  display: flex;
+  align-items: center;
+}
+
+.header_right {
+  display: flex;
+}
