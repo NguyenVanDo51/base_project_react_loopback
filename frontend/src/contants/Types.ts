@@ -1,15 +1,19 @@
 export type UserType = {
-  id: string;
-  email: string;
-  name: string;
+  id?: string;
+  email?: string;
+  userName?: string;
+  firstName?: string;
+  lastName?: string;
+  accessToken?: string;
+  avatar?: string;
 };
 
 export type ProjectType = {
   id?: string;
   name?: string;
-  user_id?: string;
+  created_by?: string;
   type?: string;
+  key?: string;
+  lead?: string;
   created_date?: Date;
-  isDeleted?: 0 | 1;
-  color?: string;
 };

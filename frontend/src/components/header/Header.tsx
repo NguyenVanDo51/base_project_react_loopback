@@ -1,81 +1,81 @@
 import React, { useEffect } from 'react';
 import { DropdownButton, ButtonGroup, Dropdown } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import Avatar from '../avatar/Avatar';
+import { GoogleLogout } from 'react-google-login';
 import './header.scss';
 import DButton from '../button/DButton';
-import { Change_Project_List } from '../../redux/dispatchAction';
-import { Link } from 'react-router-dom';
+import { Change_Project_List, Change_User } from '../../redux/dispatchAction';
+import { Link, useHistory } from 'react-router-dom';
 import Color from '../../contants/Color';
 import { RootStateType } from '../../redux/store';
+import { callApi } from '../../contants/network';
+import { useTranslation } from 'react-i18next';
+import useUser from '../../contants/hooks/useUser';
+import Path from '../../contants/Path';
 
 interface HeaderType {
   handleHiddenLeftMenu?: () => void;
 }
 
 const Header: React.FC<HeaderType> = ({ handleHiddenLeftMenu }) => {
-  const { projects, user } = useSelector(({ rootReducer }: RootStateType) => rootReducer);
+  const { projects } = useSelector(({ rootReducer }: RootStateType) => {
+    return { ...rootReducer };
+  });
 
-  // const dispatch = useDispatch();
+  const user = useUser();
 
-  // const getProjectList = async () => {
-  //   const data = await callApi('api/projects', RequestMethod.GET);
-  //   dispatch({ type: Change_Project_List, payload: data.projectList });
-  // };
-  // useEffect(() => {
-  //   projects.length < 1 && getProjectList();
-  // }, []);
+  const { t } = useTranslation();
 
-  const handleLogout = async () => {
-    // await fetch('/api/auth', {
-    //   method: 'DELETE',
-    // });
-    // mutate(null);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const getProjectList = async () => {
+    const { data } = await callApi(Path.projects, "GET");
+    dispatch({ type: Change_Project_List, payload: data });
   };
+
+
+
+  useEffect(() => {
+    projects.length < 1 && getProjectList();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const onLogoutSuccess = () => {
+    history.push('/login');
+    dispatch({ type: Change_User, payload: null });
+  }
 
   return (
     <header>
       <nav className='nav_bar_main'>
         <div className='icon_container'>
-          <DButton className='icon_menu' onClick={handleHiddenLeftMenu} buttonType="icon">
-            <svg width="24" height="24" viewBox="0 0 24 24">
-              <path
-                fill="#6B4EFF"
-                fillRule="evenodd"
-                d="M4.5 5h15a.5.5 0 1 1 0 1h-15a.5.5 0 0 1 0-1zm0 6h15a.5.5 0 1 1 0 1h-15a.5.5 0 1 1 0-1zm0 6h15a.5.5 0 1 1 0 1h-15a.5.5 0 1 1 0-1z"
-              />
-            </svg>
-          </DButton>
           <Link to="/">
             Todo-App
           </Link>
           <DropdownButton
             as={ButtonGroup}
             variant="Projects"
-            title="Projects"
-            className='btn_project'
+            title={t('projects')}
+            className='menu_item'
           >
             {
-                projects.length > 0 && projects.map((project, index) => (
-                  <Dropdown.Item eventKey={index} key={project.id}>
-                    <Link to={`/projects/${project.id}`} key={project.id}>
-                      <span className={`text_nomal $'project_item'`}>{project.name}</span>
-                    </Link>
-                  </Dropdown.Item>
-                ))
-              }
+              projects.length > 0 && projects.map((project, index) => (
+                <Dropdown.Item eventKey={index} key={project.id}>
+                  <Link to={`/projects/${project.id}`} key={project.id}>
+                    <span className={`text_nomal $'project_item'`}>{project.name}</span>
+                  </Link>
+                </Dropdown.Item>
+              ))
+            }
           </DropdownButton>
         </div>
         <div>
           {!user ? (
-            <>
-              <DButton>
-                <Link to="/login">Đăng ký</Link>
-              </DButton>
-              <DButton>
-                <Link to="/signup">Đăng nhập</Link>
-              </DButton>
-            </>
+            <DButton>
+              <Link to="/login">{t('login')}</Link>
+            </DButton>
           ) : (
             <div className='header_right'>
               <svg
@@ -109,13 +109,31 @@ const Header: React.FC<HeaderType> = ({ handleHiddenLeftMenu }) => {
                   />
                 </svg>
               </DButton>
-              <DButton buttonType="icon" onClick={handleLogout}>
-                <Avatar text="A" />
-              </DButton>
+              <DropdownButton
+                as={ButtonGroup}
+                variant="Projects"
+                title={user?.lastName}
+                className='menu_item'
+              >
+                <GoogleLogout
+                  clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ''}
+                  buttonText="Logout"
+                  onLogoutSuccess={onLogoutSuccess}
+                  render={(renderProps => {
+                    return (
+                      <Dropdown.Item onClick={renderProps.onClick}>
+                        {t('logout')}
+                      </Dropdown.Item>
+                    )
+                  })}
+                >
+                </GoogleLogout>
+              </DropdownButton>
             </div>
           )}
         </div>
       </nav>
+
     </header>
   );
 };

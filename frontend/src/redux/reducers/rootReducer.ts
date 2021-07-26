@@ -4,12 +4,10 @@ import { Change_Project_List, Change_User } from '../dispatchAction';
 
 export type RootReducerType = {
   projects: ProjectType[];
-  user?: UserType;
 }
 
 const initialState: RootReducerType = {
   projects: [],
-  user: undefined,
 };
 
 function rootReducer(state = initialState, action: AnyAction) {
@@ -19,11 +17,6 @@ function rootReducer(state = initialState, action: AnyAction) {
         ...state,
         projects: action.payload,
       };
-    case Change_User:
-      return {
-        ...state,
-        user: action.payload,
-      }
     default:
       return { ...state };
   }

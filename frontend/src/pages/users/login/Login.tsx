@@ -1,71 +1,58 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { GoogleLogin } from 'react-google-login';
 import { Link, useHistory } from 'react-router-dom';
 import DataManager from '../../../contants/DataManager';
 import { callApi } from '../../../contants/network';
 import { Change_User } from '../../../redux/dispatchAction';
+import './login.scss';
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
-  const [errorMsg, setErrorMsg] = useState('');
-  const [email, setEmail] = useState('email1@gmail.com');
-  const [password, setPassword] = useState('Do@12345');
   const history = useHistory();
   const dispatch = useDispatch();
+  const {t} = useTranslation();
 
-  const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setEmail(event.target.value);
+  const onFailure = (res) => {
+    console.log('fail', res);
   }
 
-  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setPassword(e.target.value);
-  }
-
-  async function onSubmit(e) {
-    e.preventDefault();
-    const body = {
-      email,
-      password,
-    };
-    const res = await callApi('/user/login', 'POST', body);
-    if (res.status === 200) {
-      DataManager.shared.token = res.data.token;
-      dispatch({type: Change_User, payload: res.data});
+  const onSuccess = async (res) => {
+    const { accessToken, profileObj } = res;
+    const resp = await callApi('/users/login/google', "POST", {
+      accessToken,
+      email: profileObj.email,
+      firstName: profileObj.familyName,
+      lastName: profileObj.givenName,
+      avatar: profileObj.imageUrl,
+    });
+    if (resp.status === 200) {
+      console.log(resp);
+      dispatch({ type: Change_User, payload: resp.data });
+      localStorage.setItem('todoAppCccessToken', resp.data.accessToken);
       history.push('/');
-    } else {
-      setErrorMsg(res?.response?.data?.error?.message);
     }
   }
 
   return (
     <>
-      <h2>Sign in</h2>
-      <form onSubmit={onSubmit}>
-        {errorMsg ? <p style={{ color: 'red' }}>{errorMsg}</p> : null}
-        <label htmlFor="email">
-          <input
-            id="email"
-            type="email"
-            name="email"
-            value={email}
-            placeholder="Email address"
-            onChange={handleChangeEmail}
-          />
-        </label>
-        <label htmlFor="password">
-          <input
-            id="password"
-            type="password"
-            name="password"
-            value={password}
-            placeholder="Password"
-            onChange={handleChangePassword}
-          />
-        </label>
-        <button type="submit">Sign in</button>
-        <Link to="/forget-password">
-          Forget password
+      <div className="container login_container">
+        <Link to="/">
+          Todo-App
         </Link>
-      </form>
+        <p className="text-center mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam molestiae cupiditate eligendi quae.</p>
+        <GoogleLogin
+          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ''}
+          buttonText="Log in with Google"
+          onSuccess={onSuccess}
+          onFailure={onFailure}
+          render={(renderProps) => {
+            return <button className="bg-transparent" onClick={renderProps.onClick}><img src="/icon/login_with_google.png" alt="login_with_google" /></button>
+          }}
+          isSignedIn={true}
+          cookiePolicy={'single_host_origin'}
+        />
+      </div>
     </>
   );
 };

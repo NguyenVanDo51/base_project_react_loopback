@@ -1,26 +1,24 @@
 import React from 'react';
-import { Button, ButtonProps } from 'react-bootstrap';
 import './button.scss';
 
-interface PropsType extends ButtonProps {
-  buttonType?: 'icon';
+interface PropsType {
+  buttonType?: 'icon' | 'link';
+  variant?: 'primary' | 'secondary';
+  className?: string;
+  onClick?: () => void;
 }
 
-class DButton extends React.PureComponent<PropsType> {
-
-  render() {
-    const { children, className, buttonType, onClick } = this.props;
-    let stylesButton = '';
+const DButton: React.FC<PropsType> = ({ children, className, buttonType, onClick, variant = 'primary', ...props }) => {
+    let stylesButton = `btn_${variant}`;
     if (buttonType === 'icon') {
-      stylesButton = 'btn_icon';
+      stylesButton += ' btn_icon';
     };
 
     return (
-      <Button onClick={onClick} className={`btn_container ${className} ${stylesButton}`}>
+      <button onClick={onClick} className={`btn_container ${className} ${stylesButton}`} {...props}>
         {children}
-      </Button>
+      </button>
     );
-  }
-}
+};
 
 export default DButton;

@@ -4,9 +4,12 @@
   align-items: center;
   height: 100%;
 
-  .btn_project {
+  .menu_item {
+    margin-left: 16px;
     button {
       box-shadow: unset;
+      margin-bottom: 0;
+      padding: 0 8px;
     }
   }
 }

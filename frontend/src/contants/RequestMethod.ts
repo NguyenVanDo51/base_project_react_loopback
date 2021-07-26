@@ -5,6 +5,4 @@ const RequestMethod = {
   DELETE: 'DELETE',
 };
 
-export type RequestMethodType = 'POST' | 'GET' | 'PUT' | 'DELETE';
-
 export default RequestMethod;

@@ -1,5 +1,7 @@
 import React from 'react';
-import { Modal, Button, ModalProps } from 'react-bootstrap';
+import { Modal, ModalProps } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import DButton from '../button/DButton';
 
 interface PropsType extends ModalProps {
   onConfirm?: () => void;
@@ -8,34 +10,31 @@ interface PropsType extends ModalProps {
   title?: string;
 }
 
-class DModal extends React.PureComponent<PropsType> {
+const DModal: React.FC<PropsType> = ({
+  children, closeText, confirmText, title, onHide, show, onConfirm
+}) => {
 
-  handleConfirm = () => {
-    const { onHide, onConfirm } = this.props;
+  const {t} = useTranslation();
+
+  const handleConfirm = () => {
     onHide();
     onConfirm && onConfirm();
   }
 
-  render() {
-    const {
-      children, closeText, confirmText, title, onHide, show,
-    } = this.props;
-
-    return (
-      <Modal show={show} onHide={onHide}>
-        <Modal.Header closeButton>
-          {title && <Modal.Title>{title}</Modal.Title>}
-        </Modal.Header>
-        <Modal.Body>
-          {children}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={onHide}>{closeText || 'Close'}</Button>
-          <Button variant="primary" onClick={this.handleConfirm}>{confirmText || 'Confirm'}</Button>
-        </Modal.Footer>
-      </Modal>
-    );
-  }
+  return (
+    <Modal show={show} onHide={onHide}>
+      <Modal.Header className="d_modal_header">
+        {title && <h3 className="text_large_medium">{title}</h3>}
+      </Modal.Header>
+      <Modal.Body>
+        {children}
+      </Modal.Body>
+      <Modal.Footer>
+        <DButton variant="secondary" onClick={onHide}>{closeText || t('cancel')}</DButton>
+        <DButton onClick={handleConfirm}>{confirmText || t('confirm')}</DButton>
+      </Modal.Footer>
+    </Modal>
+  );
 }
 
 export default DModal;

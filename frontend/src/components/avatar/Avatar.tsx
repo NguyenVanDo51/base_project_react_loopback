@@ -2,17 +2,20 @@ import React from 'react';
 import './avatar.scss';
 
 interface PropsType {
-  text: string;
+  image?: string;
+  text?: string;
 }
 
 class Avatar extends React.PureComponent<PropsType> {
 
   render() {
-    const { text } = this.props;
+    const { text, image } = this.props;
 
     return (
       <div className='container'>
-        <span className={`text_small_bold text`}>{text}</span>
+        {
+          image ? <image href={image} /> : <span className={`text_small_bold text`}>{text}</span>
+        }
       </div>
     );
   }

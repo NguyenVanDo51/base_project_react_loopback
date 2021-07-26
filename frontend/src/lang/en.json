@@ -1,0 +1,15 @@
+{
+  "login": "Sign in",
+  "project": "Project",
+  "projects": "Projects",
+  "create": "Create",
+  "create_project": "Create project",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "name": "Name",
+  "logout": "Log out",
+  "key": "Key",
+  "lead": "Lead",
+  "action": "Action",
+  "login_with_google": "Log in with Google"
+}

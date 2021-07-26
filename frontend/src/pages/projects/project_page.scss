@@ -1,0 +1,14 @@
+.project_list_container {
+  padding: 2rem 0;
+
+  .header_project {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .search_project_container {
+    width: 200px;
+  }
+}

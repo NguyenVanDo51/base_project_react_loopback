@@ -1,3 +1,5 @@
+@import '../../styles/Variable.scss';
+
 .btn_container {
 
 }
@@ -6,6 +8,11 @@
   background: white !important;
   border: none !important;
   box-shadow: unset !important;
+}
+
+.btn_secondary {
+  background: $white-color;
+  color: $primary-color;
 }
 
 .icon_button_container {
